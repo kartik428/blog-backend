@@ -96,9 +96,8 @@ export const login = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
-        httpOnly: true, //  correct
-        secure: true, //  required for HTTPS (Vercel)
-        sameSite: "none", //  required for cross-origin
+        httpsOnly: true,
+        sameSite: "strict",
       })
       .json({
         success: true,
@@ -116,18 +115,10 @@ export const login = async (req, res) => {
 
 export const logout = async (_, res) => {
   try {
-    return res
-      .status(200)
-      .cookie("token", "", {
-        maxAge: 0,
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      })
-      .json({
-        success: true,
-        message: "Logged out successfully",
-      });
+    return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+      success: true,
+      message: "Logged out successfully",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -193,3 +184,4 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
+
