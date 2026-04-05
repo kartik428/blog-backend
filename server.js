@@ -27,7 +27,7 @@ app.use("/api/v1/blog", blogRoute);
 
 const PORT = process.env.PORT || 3000
 
-"http://localhost:3000/api/v1/users/register"
+"https://your-backend.onrender.com/api/v1/users/register"
 
 app.listen(PORT, () => {
     connectDB()
