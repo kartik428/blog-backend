@@ -17,9 +17,13 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: [
+      "http://localhost:5173",
+      "https://blog-frontend-theta-two.vercel.app"
+    ],
     credentials: true,
-}))
+  })
+);
 
 // Routes
 app.use("/api/v1/users", userRoute);
@@ -27,7 +31,6 @@ app.use("/api/v1/blog", blogRoute);
 
 const PORT = process.env.PORT || 3000
 
-"https://your-backend.onrender.com/api/v1/users/register"
 
 app.listen(PORT, () => {
     connectDB()
