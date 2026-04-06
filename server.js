@@ -7,32 +7,31 @@ import connectDB from "./database/db.js";
 import userRoute from "./routes/user.route.js";
 import blogRoute from "./routes/blog.route.js";
 
-
-const app = express()
-
+const app = express();
 
 // default Middleware
-app.use(express.json())
-app.use(cookieParser())
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: [
+      "http://localhost:5173", // local
+      "https://blog-frontend-theta-two.vercel.app", // production frontend 
+    ],
     credentials: true,
-}))
+  }),
+);
 
 // Routes
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/blog", blogRoute);
 
-const PORT = process.env.PORT || 3000
-
-"http://localhost:3000/api/v1/users/register"
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    connectDB()
-  console.log(`Server is running on port ${PORT}`)
-})
-
+  connectDB();
+  console.log(`Server is running on port ${PORT}`);
+});
 
 export default app;

@@ -97,7 +97,8 @@ export const login = async (req, res) => {
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpsOnly: true,
-        sameSite: "strict",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", 
+        secure: process.env.NODE_ENV === "production" ? true : false, 
       })
       .json({
         success: true,
@@ -184,4 +185,3 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
-
